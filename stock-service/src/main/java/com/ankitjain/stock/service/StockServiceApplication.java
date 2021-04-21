@@ -1,4 +1,4 @@
-package com.ankitjain.company.service;
+package com.ankitjain.stock.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,10 +17,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2
 @EnableEurekaClient
-public class CompanyServiceApplication extends WebMvcConfigurationSupport {
+public class StockServiceApplication  extends WebMvcConfigurationSupport {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CompanyServiceApplication.class, args);
+		SpringApplication.run(StockServiceApplication.class, args);
 	}
 
 	@Bean

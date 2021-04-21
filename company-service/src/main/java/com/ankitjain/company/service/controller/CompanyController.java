@@ -6,12 +6,14 @@ import com.ankitjain.company.service.valueobjects.CompanyVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -31,6 +33,17 @@ public class CompanyController {
     @GetMapping("/info/{companyCode}")
     public CompanyVO getCompanyDetail(@PathVariable Long companyCode) throws Exception {
         return this.companyService.getCompanyDetail(companyCode);
+    }
+
+    @GetMapping("/getall")
+    public List<CompanyVO> getCompanyDetail() {
+        return this.companyService.getAllCompanies();
+    }
+
+    @DeleteMapping("/delete/{companyCode}")
+    public ResponseEntity<String> deleteCompanyWithAllStockPrices(@PathVariable Long companyCode) {
+         this.companyService.deleteCompanyWithAllStockPrices(companyCode);
+         return new ResponseEntity<String>("Deleted Successfully", HttpStatus.ACCEPTED);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

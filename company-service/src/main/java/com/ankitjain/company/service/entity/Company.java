@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Company {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long companyCode;
     @NotBlank(message = "CompanyName is mandatory")
     private String companyName;
