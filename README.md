@@ -7,4 +7,4 @@ for this project I have created 4 microservices:
 - stock-service
 
 I have documented all the apis using swagger in the parent folder.
-I have create dockerfile for all 4 microservices.
+I have created dockerfile for all 4 microservices in their respective folders.
