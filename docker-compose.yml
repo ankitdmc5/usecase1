@@ -1,0 +1,32 @@
+# Docker Compose file Reference (https://docs.docker.com/compose/compose-file/)
+version: '3'
+
+#Define services
+services:
+
+  #Back-end Spring Boot Application
+  service-registry:
+    build: ./service-registry
+    container_name: service-registry
+    ports:
+      - 8761:8761
+
+
+  gateway-service:
+    build: ./gateway-service
+    container_name: gateway-service
+    ports:
+      - 9191:9191
+
+  company-service:
+    build: ./company-service
+    container_name: company-service
+    ports:
+      - 9001:9001
+
+  stock-service:
+    build: ./stock-service
+    container_name: stock-service
+    ports:
+      - 9002:9002
+    
