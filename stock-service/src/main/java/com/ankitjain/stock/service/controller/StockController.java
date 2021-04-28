@@ -8,17 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1.0/stock")
+@RequestMapping("/api/v1.0/market/stock")
 @Slf4j
 public class StockController {
 
@@ -26,7 +26,7 @@ public class StockController {
     private StockService service;
 
     @PostMapping("/add/{companyCode}")
-    public ResponseEntity<Stock> addStockPrice(@PathVariable Long companyCode, @Valid @RequestBody Stock stock) throws Exception {
+    public ResponseEntity<Stock> addStockPrice(@PathVariable Long companyCode, @Validated @RequestBody Stock stock) throws Exception {
         log.info("Inside addStockPrice method");
         stock.setCompanyCode(companyCode);
         stock.setDate(new Date());
@@ -39,8 +39,9 @@ public class StockController {
                                      @PathVariable String startdate,
                                      @PathVariable String enddate) throws Exception {
         log.info("Inside getStockPriceList method");
-        Date date1=new SimpleDateFormat("dd-MM-yyyy").parse(startdate);
-        Date date2=new SimpleDateFormat("dd-MM-yyyy").parse(enddate);
+        Date date1 = new SimpleDateFormat("dd-MM-yyyy").parse(startdate);
+        Date date2 = new SimpleDateFormat("dd-MM-yyyy").parse(enddate);
+        date2.setDate(date2.getDate() + 1);
         return this.service.getStockPriceList(companyCode, date1, date2);
     }
 
@@ -53,11 +54,11 @@ public class StockController {
     @DeleteMapping("/deleteAll/{companyCode}")
     public ResponseEntity<String> deleteAllByCompanyCode(@PathVariable Long companyCode) throws Exception {
         this.service.deleteAllByCompanyCode(companyCode);
-        return new ResponseEntity<String>("Deleted Successfully", HttpStatus.ACCEPTED);
+        return new ResponseEntity<>("Deleted Successfully", HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/test")
-    public String test(){
+    public String test() {
         return "Test stock service";
     }
 

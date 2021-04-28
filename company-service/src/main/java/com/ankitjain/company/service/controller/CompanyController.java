@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1.0/market")
+@RequestMapping("/api/v1.0/market/company")
 @Slf4j
 public class CompanyController {
 
@@ -25,7 +26,7 @@ public class CompanyController {
     private CompanyService companyService;
 
     @PostMapping("/register")
-    public Company registerCompany(@Valid @RequestBody Company requestDto) {
+    public Company registerCompany(@Validated @RequestBody Company requestDto) {
         log.info("Inside registerCompany method");
         return this.companyService.register(requestDto);
     }
@@ -41,9 +42,9 @@ public class CompanyController {
     }
 
     @DeleteMapping("/delete/{companyCode}")
-    public ResponseEntity<String> deleteCompanyWithAllStockPrices(@PathVariable Long companyCode) {
+    public ResponseEntity<String> deleteCompanyWithAllStockPrices(@PathVariable Long companyCode) throws Exception {
          this.companyService.deleteCompanyWithAllStockPrices(companyCode);
-         return new ResponseEntity<String>("Deleted Successfully", HttpStatus.ACCEPTED);
+         return new ResponseEntity<>("Deleted Successfully", HttpStatus.ACCEPTED);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

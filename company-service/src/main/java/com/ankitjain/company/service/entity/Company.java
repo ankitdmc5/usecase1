@@ -24,10 +24,11 @@ public class Company {
     @NotBlank(message = "companyCEO is mandatory")
     private String companyCEO;
     @Min(10000001)
+    @NotNull
     private Double turnOver;
     @NotBlank(message = "website is mandatory")
     private String website;
     @ElementCollection(fetch = FetchType.EAGER)
     @NotNull
-    private List<String> listedAt = new ArrayList<>();
+    private List<String> listedAt;
 }

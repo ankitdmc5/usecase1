@@ -32,7 +32,7 @@ public class StockService {
     private boolean companyCodeExists(Long companyCode) {
         ResponseEntity<String> response = null;
         try {
-            response = this.restTemplate.exchange("http://COMPANY-SERVICE/api/v1.0/market/info/" + companyCode, HttpMethod.GET, null, String.class);
+            response = this.restTemplate.exchange("http://COMPANY-SERVICE/api/v1.0/market/company/info/" + companyCode, HttpMethod.GET, null, String.class);
         } catch (RestClientException restClientException) {
             return false;
         }
@@ -59,16 +59,21 @@ public class StockService {
         }
     }
 
-    public Stock getLatestStockPrice(Long companyCode) throws Exception {
+    public Stock getLatestStockPrice(Long companyCode) {
         try {
-            final Stock stock = this.repository.findFirstByCompanyCodeOrderByStockPriceDesc(companyCode).get(0);
+            final List<Stock> stockList = this.repository.findFirstByCompanyCodeOrderByDateDesc(companyCode);
+            final Stock stock = stockList.get(0);
             return stock;
-        } catch (Exception e){
+        } catch (Exception e) {
             return new Stock();
         }
     }
 
     public void deleteAllByCompanyCode(Long companyCode) {
-        this.repository.deleteAllByCompanyCode(companyCode);
+        try {
+            this.repository.deleteAllByCompanyCode(companyCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -19,8 +19,8 @@ spring:
         - id: STOCK-SERVICE
           uri: lb://STOCK-SERVICE
           predicates:
-            - Path=/api/v1.0/stock/**
+            - Path=/api/v1.0/market/stock/**
         - id: COMPANY-SERVICE
           uri: lb://COMPANY-SERVICE
           predicates:
-            - Path=/api/v1.0/company/**
+            - Path=/api/v1.0/market/company/**
